@@ -84,7 +84,7 @@ async function generateQuiz() {
 
         const res = await fetch(
 
-            "http://127.0.0.1:8000/generate-quiz",
+            "https://quiznova-bm8b.onrender.com/generate-quiz",
 
             {
 
