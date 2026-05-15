@@ -1,14 +1,53 @@
 import json
-
 from google import genai
 
 from config import GEMINI_API_KEY, MODEL_NAME
 
-from utils import remove_duplicates, validate_questions
-
 
 # Gemini Client
 client = genai.Client(api_key=GEMINI_API_KEY)
+
+
+# Simple duplicate remover (without spacy)
+def remove_duplicates(questions):
+
+    unique_questions = []
+    seen = set()
+
+    for q in questions:
+
+        question_text = q["question"].strip().lower()
+
+        if question_text not in seen:
+
+            seen.add(question_text)
+
+            unique_questions.append(q)
+
+    return unique_questions
+
+
+# Question validator
+def validate_questions(questions):
+
+    valid_questions = []
+
+    for q in questions:
+
+        if (
+
+            "question" in q and
+            "options" in q and
+            "answer" in q and
+            len(q["options"]) == 4 and
+            q["answer"] in q["options"]
+
+        ):
+
+            valid_questions.append(q)
+
+    return valid_questions
+
 
 def generate_quiz(
     text: str,
@@ -65,7 +104,7 @@ def generate_quiz(
 
         text_output = str(response.text).strip()
 
-        # remove markdown
+        # Remove markdown formatting
         text_output = text_output.replace(
             "```json",
             ""
@@ -74,7 +113,7 @@ def generate_quiz(
             ""
         )
 
-        # extract json safely
+        # Extract JSON safely
         start = text_output.find("{")
 
         end = text_output.rfind("}") + 1
@@ -117,12 +156,12 @@ def generate_quiz(
 
                 })
 
-        # remove duplicates
+        # Remove duplicates
         cleaned_questions = remove_duplicates(
             cleaned_questions
         )
 
-        # validate
+        # Validate questions
         cleaned_questions = validate_questions(
             cleaned_questions
         )
