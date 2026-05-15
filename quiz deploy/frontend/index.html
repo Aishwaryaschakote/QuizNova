@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuizNova</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <span>⚡</span>
+      <h2>QuizNova</h2>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>Create AI Powered Quizzes</h1>
+
+      <p>
+        Generate beautiful MCQ quizzes instantly from any topic using AI.
+      </p>
+    </section>
+
+    <!-- GENERATE QUIZ -->
+<section class="quiz-box" id="startScreen">
+
+  <div class="input-area multi-input">
+
+    <!-- TOPIC -->
+    <input
+      type="text"
+      id="topic"
+      placeholder="Enter topic..."
+    >
+
+    <!-- QUESTION COUNT -->
+    <input
+  type="number"
+  id="questionCount"
+  style="min-width: 120px;"
+  placeholder="No. of Questions"
+  min="1"
+  max="50"
+/>
+
+    <!-- DIFFICULTY -->
+    <select id="difficulty">
+
+        <option value="" disabled selected>
+            Difficulty
+        </option>
+
+        <option value="easy">
+            Easy
+        </option>
+
+        <option value="medium">
+            Medium
+        </option>
+
+        <option value="hard">
+            Hard
+        </option>
+
+    </select>
+
+    <!-- TIME VALUE -->
+<input
+  type="number"
+  id="timeValue"
+  placeholder="Enter Time"
+  min="1"
+  value="10"
+/>
+
+<!-- TIME UNIT -->
+<select id="timeUnit">
+
+    <option value="seconds">
+        Seconds
+    </option>
+
+    <option value="minutes" selected>
+        Minutes
+    </option>
+
+    <option value="hours">
+        Hours
+    </option>
+
+</select>
+
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateQuiz()">
+      Generate
+    </button>
+
+</div>
+
+  <p id="status"></p>
+
+</section>
+
+<!-- LOADING SCREEN -->
+
+<section
+  id="loadingScreen"
+  class="loading-screen"
+  style="display: none;"
+>
+
+    <div class="loader"></div>
+
+    <h2>Generating Your Quiz...</h2>
+
+    <p>
+        Our AI is preparing smart questions for you 🚀
+    </p>
+
+</section>
+
+    <!-- QUIZ SECTION -->
+    <section id="quizSection">
+      <div id="timerBox" class="timer-box">
+
+    ⏳ Time Left:
+    <span id="timer">00:00</span>
+
+</div>
+      <form id="quizForm"></form>
+      
+
+      <!-- HIDDEN INITIALLY -->
+      <button
+        id="submitBtn"
+        class="submit-btn"
+        onclick="submitQuiz()"
+        style="display: none;"
+      >
+        Submit Quiz
+      </button>
+
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section
+      id="resultScreen"
+      class="result-screen"
+      style="display: none;"
+    >
+
+      <h2 id="greeting"></h2>
+
+      <div class="score-card">
+        <h3 id="finalScore"></h3>
+      </div>
+
+      <div class="result-actions">
+
+        <button onclick="viewSolutions()">
+          View Solutions
+        </button>
+
+        <button onclick="retakeQuiz()">
+          Retake Quiz
+        </button>
+
+        <button type="button" onclick="startNewQuiz()">
+          Start New Quiz
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- SOLUTIONS SCREEN -->
+    <section
+      id="solutionsScreen"
+      class="solutions-screen"
+      style="display: none;"
+    >
+
+      <div class="solution-header">
+
+    <h2>Quiz Solutions</h2>
+
+    <div class="solution-buttons">
+
+        <button onclick="backToResults()">
+            Back
+        </button>
+
+        <button onclick="retakeQuiz()">
+            Retake Quiz
+        </button>
+
+        <button type="button" onclick="startNewQuiz()">
+            Start New Quiz
+        </button>
+
+    </div>
+
+</div>
+
+      <div id="solutionsContainer"></div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
