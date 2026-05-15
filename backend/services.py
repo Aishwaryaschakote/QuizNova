@@ -8,9 +8,7 @@ from utils import remove_duplicates, validate_questions
 
 
 # Gemini Client
-client = genai.Client(
-    api_key="AIzaSyCPz7FtvbpPboDZy8FwfL6B__uu7Wiy44I"
-)
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def generate_quiz(
     text: str,
